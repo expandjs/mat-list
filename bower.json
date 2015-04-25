@@ -1,0 +1,36 @@
+{
+  "name": "mat-list",
+  "license": "BSD-3-Clause",
+  "version": "0.8.0",
+  "description": "This component is used to display a material list.",
+  "authors": [
+    "Giuliano Rullo <g.rullo@expandjs.com>",
+    "Maurizio Stefàno <m.stefano@expandjs.com>",
+    "Robert Manolea <r.manolea@expandjs.com>"
+  ],
+  "main": [
+    "mat-list.html",
+    "mat-sublist.html"
+  ],
+  "keywords": [
+    "web-components"
+  ],
+  "dependencies": {
+    "expandjs": "ExpandJS/expandjs",
+    "mat-divider": "ExpandJS/mat-divider",
+    "mat-icon": "ExpandJS/mat-icon",
+    "mat-ink": "ExpandJS/mat-ink",
+    "mat-item": "ExpandJS/mat-item",
+    "mat-subheader": "ExpandJS/mat-subheader",
+    "xp-list": "ExpandJS/xp-list",
+    "xp-master-state": "ExpandJS/xp-master-state",
+    "xp-slave-state": "ExpandJS/xp-slave-state",
+    "xp-targeter": "ExpandJS/xp-targeter",
+    "polymer": "Polymer/polymer#^0.5"
+  },
+  "devDependencies": {
+    "mat-demo": "ExpandJS/mat-demo",
+    "mat-item": "ExpandJS/mat-item",
+    "mat-paper": "ExpandJS/mat-paper"
+  }
+}

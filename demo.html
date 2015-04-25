@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+        <script>if (!('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template'))) document.write('<script src="/webcomponentsjs/webcomponents.js"><\/script>');</script>
+
+        <link rel="import" href="../mat-demo/mat-demo.html">
+        <link rel="import" href="../mat-item/mat-item.html">
+        <link rel="import" href="../mat-paper/mat-paper.html">
+        <link rel="import" href="mat-list.html">
+        <link rel="import" href="mat-sublist.html">
+
+    </head>
+
+    <!-- BODY -->
+    <body fullbleed unresolved>
+
+        <polymer-element name="mat-list-demo" noscript>
+
+            <template>
+                <style>
+                    :host .container {
+                        margin: auto;
+                        max-width: 320px;
+                    }
+                </style>
+                <mat-demo label="mat-list">
+
+                    <h1>Default</h1>
+                    <mat-paper class="container" z="1">
+                        <mat-list label="Subheader">
+                            <mat-item selectable label="Item 1"></mat-item>
+                            <mat-item selectable label="Item 2"></mat-item>
+                            <mat-item selectable label="Item 3"></mat-item>
+                        </mat-list>
+                    </mat-paper>
+
+                    <h1>Collapsible</h1>
+                    <mat-paper class="container" z="1">
+                        <mat-list>
+                            <mat-sublist label="Favorites" icon="action:stars" collapsible>
+                                <mat-item selectable label="Alvin Kelley"></mat-item>
+                                <mat-item selectable label="Lois Roy"></mat-item>
+                                <mat-item selectable label="Oscar Vaughn"></mat-item>
+                            </mat-sublist>
+                            <mat-sublist label="Contacts" icon="social:people" collapsible collapsed>
+                                <mat-item selectable label="Stanley Stokes"></mat-item>
+                                <mat-item selectable label="Alvin Kelley"></mat-item>
+                                <mat-item selectable label="Harold Gardner"></mat-item>
+                                <mat-item selectable label="Lois Roy"></mat-item>
+                                <mat-item selectable label="Gladys Frank"></mat-item>
+                                <mat-item selectable label="Oscar Vaughn"></mat-item>
+                            </mat-sublist>
+                        </mat-list>
+                    </mat-paper>
+
+                    <h1>Sublists</h1>
+                    <mat-paper class="container" z="1">
+                        <mat-list>
+                            <mat-sublist label="Items">
+                                <mat-item selectable label="Item 1"></mat-item>
+                                <mat-item selectable label="Item 2"></mat-item>
+                            </mat-sublist>
+                            <mat-sublist label="Links">
+                                <a item href="http://www.expandjs.com" target="_blank">expand.js</a>
+                                <a item href="https://www.polymer-project.org" target="_blank">polymer-project</a>
+                            </mat-sublist>
+                        </mat-list>
+                    </mat-paper>
+
+                </mat-demo>
+            </template>
+
+        </polymer-element>
+
+        <mat-list-demo></mat-list-demo>
+
+    </body>
+
+</html>

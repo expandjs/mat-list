@@ -1,0 +1,478 @@
+<!--
+@license
+Copyright (c) 2015 The expand.js authors. All rights reserved.
+This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
+The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
+-->
+
+<!--
+This component is used to display a material list.
+It can be used in conjunction with mat-item and mat-sublist.
+
+@component mat-list
+@description This component is used to display a material list.
+@mixin xp-targeter http://www.expandjs.com/components/xp-targeter
+
+@dependency polymer Polymer/polymer#^0.5
+@dependency expandjs ExpandJS/expandjs
+@dependency mat-ink ExpandJS/mat-ink
+@dependency xp-list ExpandJS/xp-list
+@dependency xp-master-state ExpandJS/xp-master-state
+@dependency xp-targeter ExpandJS/xp-targeter
+
+@devDependency mat-demo ExpandJS/mat-demo
+@devDependency mat-item ExpandJS/mat-item
+@devDependency mat-paper ExpandJS/mat-paper
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../expandjs/expandjs.html">
+<link rel="import" href="../mat-ink/mat-ink.html">
+<link rel="import" href="../xp-list/xp-list.html">
+<link rel="import" href="../xp-master-state/xp-master-state.html">
+<link rel="import" href="../xp-targeter/xp-targeter.html">
+
+<polymer-element name="mat-list" constructor="MATListElement" attributes="activateEvent autoCollapseDisabled defaultSelected items itemSelector multi priorSelected selected selectedAttribute selection sublists switchable target">
+
+    <template>
+        <style>
+            :host {
+                display: block;
+                overflow: visible;
+            }
+
+            :host #matListAdaptee,
+            :host #matListWrapper {
+                min-height: 100%;
+            }
+
+            :host #matListAdaptee {
+                padding: 8px 0;
+            }
+
+            :host #matListWrapper ::content [item=""] {
+                cursor: pointer;
+                display: block;
+                min-height: 48px;
+                outline: 0;
+                padding: 0 16px;
+                text-align: left;
+                text-decoration: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                -webkit-user-select: none;
+                user-select: none;
+
+                /* SUBHEAD */
+                font-size: 16px;
+                font-weight: 400;
+                letter-spacing: 0.01em;
+                line-height: 48px;
+                text-overflow: clip;
+                white-space: normal;
+            }
+
+            :host #matListWrapper ::content [item=""][href]:hover {
+                text-decoration: underline;
+            }
+
+            :host #matListWrapper[foreground="dark"] ::content [item=""][active] {
+                background: hsla(0, 0%, 0%, 0.12);
+            }
+
+            :host #matListWrapper[foreground="light"] ::content [item=""][active] {
+                background: hsla(0, 0%, 100%, 0.12);
+            }
+
+            :host #matListWrapper[foreground="dark"] ::content > [item=""]:not(:last-child) {
+                border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
+                margin-bottom: -1px;
+            }
+
+            :host #matListWrapper[foreground="light"] ::content > [item=""]:not(:last-child) {
+                border-bottom: 1px solid hsla(0, 0%, 100%, 0.12);
+                margin-bottom: -1px;
+            }
+
+            :host #matListWrapper ::content > mat-item[active]::shadow #matItemRipple::shadow #matRippleBackground {
+                opacity: 0.5;
+            }
+
+            :host #matListWrapper ::content > mat-item:not(:last-child)::shadow #matItemDivider {
+                display: block;
+            }
+
+            :host #matListWrapper ::content mat-sublist + mat-sublist[collapsible]:not([collapsed])::shadow #matSublistDividerTop,
+            :host #matListWrapper ::content mat-sublist[collapsible]:not([collapsed]):not(:last-child)::shadow #matSublistDividerBottom,
+            :host #matListWrapper ::content mat-sublist:not([collapsible]):not(:last-child)::shadow #matSublistDividerBottom {
+                height: auto;
+                margin: 7px 0 8px 0;
+            }
+
+            :host #matListWrapper ::content mat-sublist:not([collapsible]):not([emptyLabel]) {
+                margin-top: -8px;
+            }
+        </style>
+        <template context="{{}}" is="xp-master-state" id="xpMasterState" slaves="{{sublists}}" slaveTag="mat-sublist"></template>
+        <xp-list context="{{}}" id="matListAdaptee" activateEvent="{{activateEvent}}"
+                 autoCollapseDisabled="{{autoCollapseDisabled}}" defaultSelected="{{defaultSelected}}"
+                 indexAttribute="{{indexAttribute}}" items="{{items}}" itemSelector="{{itemSelector}}"
+                 multi="{{multi}}" priorSelected="{{priorSelected}}" selected="{{selected}}"
+                 selection="{{selection}}" switchable="{{switchable}}" target="{{target}}">
+            <mat-ink id="matListWrapper">
+                    <content id="content"></content>
+            </mat-ink>
+        </xp-list>
+    </template>
+
+    <script>
+        XPComponent({
+
+            // MIXINS
+            mixins: ['xp-targeter'],
+
+            /*********************************************************************/
+
+            /**
+             * Finds an item's index.
+             *
+             * @method findIndex
+             * @param {Element | Function | number | string} identity
+             * @returns {number | string | undefined}
+             */
+            findIndex: function (identity) {
+                return this.$.matListAdaptee.findIndex(identity);
+            },
+
+            /**
+             * Finds an item.
+             *
+             * @method findItem
+             * @param {Element | Function | number | string} identity
+             * @returns {Element | undefined}
+             */
+            findItem: function (identity) {
+                return this.$.matListAdaptee.findItem(identity);
+            },
+
+            /**
+             * Finds items filtered by predicate.
+             *
+             * @method findItems
+             * @param {Function} [predicate]
+             * @returns {Array}
+             */
+            findItems: function (predicate) {
+                return this.$.matListAdaptee.findItems(predicate);
+            },
+
+            /**
+             * Finds an item's index, iterating from right to left.
+             *
+             * @method findLastIndex
+             * @param {Element | Function | number | string} identity
+             * @returns {number | string | undefined}
+             */
+            findLastIndex: function (identity) {
+                return this.$.matListAdaptee.findLastIndex(identity);
+            },
+
+            /**
+             * Finds an item, iterating from right to left.
+             *
+             * @method findLastItem
+             * @param {Element | Function | number | string} identity
+             * @returns {Element | undefined}
+             */
+            findLastItem: function (identity) {
+                return this.$.matListAdaptee.findLastItem(identity);
+            },
+
+            /**
+             * Checks if an item is selectable.
+             *
+             * @method isSelectable
+             * @param {Element | Function | number | string} identity
+             * @returns {boolean}
+             */
+            isSelectable: function (identity) {
+                return this.$.matListAdaptee.isSelectable(identity);
+            },
+
+            /**
+             * Checks if an item is selected.
+             *
+             * @method isSelected
+             * @param {Element | Function | number | string} identity
+             * @returns {boolean}
+             */
+            isSelected: function (identity) {
+                return this.$.matListAdaptee.isSelected(identity);
+            },
+
+            /**
+             * Checks if an item is unselectable.
+             *
+             * @method isUnselectable
+             * @param {Element | Function | number | string} identity
+             * @param {boolean} [force = false]
+             * @returns {boolean}
+             */
+            isUnselectable: function (identity, force) {
+                return this.$.matListAdaptee.isUnselectable(identity, force);
+            },
+
+            /**
+             * Resets the selection.
+             *
+             * @method reset
+             * @returns {Element}
+             */
+            reset: function () {
+                var self = this;
+                self.$.matListAdaptee.reset();
+                return self;
+            },
+
+            /**
+             * Selects an item.
+             *
+             * @method select
+             * @param {Element | Function | number | string} identity
+             * @returns {Element | undefined}
+             */
+            select: function (identity) {
+                return this.$.matListAdaptee.select(identity);
+            },
+
+            /**
+             * Selects all items.
+             *
+             * @method selectAll
+             * @param {Function} [predicate]
+             * @returns {Array}
+             */
+            selectAll: function (predicate) {
+                return this.$.matListAdaptee.selectAll(predicate);
+            },
+
+            /**
+             * Selects the prior selected item.
+             *
+             * @method selectPriorSelected
+             * @returns {Element | undefined}
+             */
+            selectPriorSelected: function () {
+                return this.$.matListAdaptee.selectPriorSelected();
+            },
+
+            /**
+             * Selects the next item.
+             *
+             * @method selectNext
+             * @returns {Element | undefined}
+             */
+            selectNext: function () {
+                return this.$.matListAdaptee.selectNext();
+            },
+
+            /**
+             * Selects the previous item.
+             *
+             * @method selectPrevious
+             * @returns {Element | undefined}
+             */
+            selectPrevious: function () {
+                return this.$.matListAdaptee.selectPrevious();
+            },
+
+            /**
+             * Toggles active state on an item.
+             *
+             * @method switch
+             * @param {Element | Function | number | string} identity
+             * @param {boolean} [force = false]
+             * @returns {Element | undefined}
+             */
+            switch: function (identity, force) {
+                return this.$.matListAdaptee.switch(identity, force);
+            },
+
+            /**
+             * Toggles active state on all items.
+             *
+             * @method switchAll
+             * @param {Function} [predicate]
+             * @param {boolean} [force = false]
+             * @returns {Array}
+             */
+            switchAll: function (predicate, force) {
+                return this.$.matListAdaptee.switchAll(predicate, force);
+            },
+
+            /**
+             * Unselects an item.
+             *
+             * @method unselect
+             * @param {Element | Function | number | string} identity
+             * @param {boolean} [force = false]
+             * @returns {Element | undefined}
+             */
+            unselect: function (identity, force) {
+                return this.$.matListAdaptee.unselect(identity, force);
+            },
+
+            /**
+             * Unselects all items.
+             *
+             * @method unselectAll
+             * @param {Function} [predicate]
+             * @param {boolean} [force = false]
+             * @returns {Array}
+             */
+            unselectAll: function (predicate, force) {
+                return this.$.matListAdaptee.unselectAll(predicate, force);
+            },
+
+            /*********************************************************************/
+
+            // PUBLISH
+            publish: {
+
+                /**
+                 * The event on which the selection fires.
+                 *
+                 * @attribute activateEvent
+                 * @type string
+                 * @default "click"
+                 */
+                activateEvent: {reflect: true, value: 'click'},
+
+                /**
+                 * If set to true, a sublist expansion wont collapse the siblings.
+                 *
+                 * @attribute autoCollapseDisabled
+                 * @type boolean
+                 * @default false
+                 */
+                autoCollapseDisabled: {reflect: true, value: false},
+
+                /**
+                 * The index of the item to select by default.
+                 *
+                 * @attribute defaultSelected
+                 * @type number | string
+                 */
+                defaultSelected: {reflect: false, value: null},
+
+                /**
+                 * The attribute used as index.
+                 *
+                 * @attribute indexAttribute
+                 * @type string
+                 * @default ""
+                 */
+                indexAttribute: {reflect: true, value: ''},
+
+                /**
+                 * The selectable items.
+                 *
+                 * @attribute items
+                 * @type Array
+                 */
+                items: {reflect: false, value: null},
+
+                /**
+                 * The selector used to recognize selectable items.
+                 *
+                 * @attribute itemSelector
+                 * @type string
+                 * @default "[selectable]"
+                 */
+                itemSelector: {reflect: true, value: '[selectable]'},
+
+                /**
+                 * If set to true, multi selection is allowed.
+                 *
+                 * @attribute multi
+                 * @type boolean
+                 * @default false
+                 * @readonly
+                 */
+                multi: {reflect: true, value: false},
+
+                /**
+                 * The prior selected item's index.
+                 *
+                 * @attribute priorSelected
+                 * @type number | string
+                 * @readonly
+                 */
+                priorSelected: {reflect: false, value: null},
+
+                /**
+                 * The selected item's index.
+                 *
+                 * @attribute selected
+                 * @type Array | number | string
+                 */
+                selected: {reflect: false, value: null},
+
+                /**
+                 * The attribute set on selection.
+                 *
+                 * @attribute selectedAttribute
+                 * @type string
+                 * @default "active"
+                 */
+                selectedAttribute: {reflect: true, value: 'active'},
+
+                /**
+                 * The selected item.
+                 *
+                 * @attribute selection
+                 * @type Element
+                 * @readonly
+                 */
+                selection: {reflect: false, value: null},
+
+                /**
+                 * The slave sublists.
+                 *
+                 * @attribute sublists
+                 * @type Array
+                 * @readonly
+                 */
+                sublists: {reflect: false, value: null},
+
+                /**
+                 * If set to true, the unselection is allowed even if not multi.
+                 *
+                 * @attribute switchable
+                 * @type boolean
+                 * @default false
+                 */
+                switchable: {reflect: true, value: false},
+
+                /**
+                 * The `id` of the targeted element or the element itself.
+                 *
+                 * @attribute target
+                 * @type Element | string
+                 */
+                target: {reflect: false, value: null}
+            },
+
+            /*********************************************************************/
+
+            // OBSERVER
+            selectionChanged: function (pre, post) {
+                var self = this, superlist = post && !self.multi && XP.findParentElement(post, 'mat-sublist', self);
+                if (superlist) { superlist.expand(); }
+            }
+        });
+    </script>
+
+</polymer-element>
