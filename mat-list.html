@@ -107,9 +107,9 @@ It can be used in conjunction with mat-item and mat-sublist.
                 display: block;
             }
 
-            :host #matListWrapper ::content mat-sublist + mat-sublist[collapsible]:not([collapsed])::shadow #matSublistDividerTop,
-            :host #matListWrapper ::content mat-sublist[collapsible]:not([collapsed]):not(:last-child)::shadow #matSublistDividerBottom,
-            :host #matListWrapper ::content mat-sublist:not([collapsible]):not(:last-child)::shadow #matSublistDividerBottom {
+            :host #matListWrapper ::content mat-sublist + mat-sublist[collapsible]:not([collapsed])::shadow > #matSublistWrapper > #matSublistDividerTop,
+            :host #matListWrapper ::content mat-sublist[collapsible]:not([collapsed]):not(:last-child)::shadow > #matSublistWrapper > #matSublistDividerBottom,
+            :host #matListWrapper ::content mat-sublist:not([collapsible]):not(:last-child)::shadow > #matSublistWrapper > #matSublistDividerBottom {
                 height: auto;
                 margin: 7px 0 8px 0;
             }
