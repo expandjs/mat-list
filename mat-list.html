@@ -12,6 +12,7 @@ It can be used in conjunction with mat-item and mat-sublist.
 
 @element mat-list
 @description A custom element used to display a Material Design list
+@group navigation
 @homepage http://www.expandjs.com/elements/mat-list
 @demo http://www.expandjs.com/demo/mat-list
 
@@ -84,12 +85,12 @@ It can be used in conjunction with mat-item and mat-sublist.
                 background: hsla(0, 0%, 100%, 0.12);
             }
 
-            :host #matListWrapper[foreground="dark"] ::content > [item=""]:not(:last-child) {
+            :host #matListWrapper[foreground="dark"] ::content > [item=""]:not(:last-of-type) {
                 border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
                 margin-bottom: -1px;
             }
 
-            :host #matListWrapper[foreground="light"] ::content > [item=""]:not(:last-child) {
+            :host #matListWrapper[foreground="light"] ::content > [item=""]:not(:last-of-type) {
                 border-bottom: 1px solid hsla(0, 0%, 100%, 0.12);
                 margin-bottom: -1px;
             }
@@ -98,13 +99,13 @@ It can be used in conjunction with mat-item and mat-sublist.
                 opacity: 0.5;
             }
 
-            :host #matListWrapper ::content > mat-item:not(:last-child)::shadow #matItemDivider {
+            :host #matListWrapper ::content > mat-item:not(:last-of-type)::shadow #matItemDivider {
                 display: block;
             }
 
             :host #matListWrapper ::content mat-sublist + mat-sublist[collapsible]:not([collapsed])::shadow > #matSublistWrapper > #matSublistDividerTop,
-            :host #matListWrapper ::content mat-sublist[collapsible]:not([collapsed]):not(:last-child)::shadow > #matSublistWrapper > #matSublistDividerBottom,
-            :host #matListWrapper ::content mat-sublist:not([collapsible]):not(:last-child)::shadow > #matSublistWrapper > #matSublistDividerBottom {
+            :host #matListWrapper ::content mat-sublist[collapsible]:not([collapsed]):not(:last-of-type)::shadow > #matSublistWrapper > #matSublistDividerBottom,
+            :host #matListWrapper ::content mat-sublist:not([collapsible]):not(:last-of-type)::shadow > #matSublistWrapper > #matSublistDividerBottom {
                 height: auto;
                 margin: 7px 0 8px 0;
             }
