@@ -469,7 +469,7 @@ It can be used in conjunction with mat-item and mat-sublist.
 
             // OBSERVER
             selectionChanged: function (pre, post) {
-                var self = this, superlist = post && !self.multi && XP.findParentElement(post, 'mat-sublist', self);
+                var self = this, superlist = post && !self.multi && XP.findParentElement(post, 'mat-sublist[collapsible]', self);
                 if (superlist) { superlist.expand(); }
             }
         });
