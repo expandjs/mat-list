@@ -37,7 +37,7 @@ It can be used in conjunction with mat-item and mat-sublist.
 <link rel="import" href="../xp-master-state/xp-master-state.html">
 <link rel="import" href="../xp-targeter/xp-targeter.html">
 
-<polymer-element name="mat-list" constructor="MATListElement" attributes="activateEvent autoCollapseDisabled defaultSelected indexAttribute items itemSelector multi priorSelected selected selectedAttribute selection sublists switchable target">
+<polymer-element name="mat-list" constructor="MATListElement" attributes="activateEvent defaultSelected indexAttribute items itemSelector multi priorSelected selected selectedAttribute selection sublists switchable target">
 
     <template>
         <style>
@@ -116,11 +116,10 @@ It can be used in conjunction with mat-item and mat-sublist.
             }
         </style>
         <template context="{{}}" is="xp-master-state" id="xpMasterState" slaves="{{sublists}}" slaveTag="mat-sublist"></template>
-        <xp-list context="{{}}" id="matListAdaptee" activateEvent="{{activateEvent}}"
-                 autoCollapseDisabled="{{autoCollapseDisabled}}" defaultSelected="{{defaultSelected}}"
-                 indexAttribute="{{indexAttribute}}" items="{{items}}" itemSelector="{{itemSelector}}"
-                 multi="{{multi}}" priorSelected="{{priorSelected}}" selected="{{selected}}"
-                 selection="{{selection}}" switchable="{{switchable}}" target="{{target}}">
+        <xp-list context="{{}}" id="matListAdaptee" activateEvent="{{activateEvent}}" defaultSelected="{{defaultSelected}}"
+                 indexAttribute="{{indexAttribute}}" items="{{items}}" itemSelector="{{itemSelector}}" multi="{{multi}}"
+                 priorSelected="{{priorSelected}}" selected="{{selected}}" selection="{{selection}}"
+                 switchable="{{switchable}}" target="{{target}}">
             <mat-ink id="matListWrapper">
                     <content id="content"></content>
             </mat-ink>
@@ -349,15 +348,6 @@ It can be used in conjunction with mat-item and mat-sublist.
                  * @default "click"
                  */
                 activateEvent: {reflect: true, value: 'click'},
-
-                /**
-                 * If set to true, a sublist expansion wont collapse the siblings.
-                 *
-                 * @attribute autoCollapseDisabled
-                 * @type boolean
-                 * @default false
-                 */
-                autoCollapseDisabled: {reflect: true, value: false},
 
                 /**
                  * The index of the item to select by default.
