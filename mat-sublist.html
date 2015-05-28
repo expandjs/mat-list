@@ -74,7 +74,7 @@ It must be used in conjunction with mat-list.
             <template if="{{collapsible && !emptyLabel}}"><mat-item id="matSublistCollapser" active="{{collapsed}}" label="{{label}}" primaryIcon="{{icon}}" primaryIconSrc="{{iconSrc}}" secondaryIcon="{{collapsed ? 'navigation:expand-more' : 'navigation:expand-less'}}" secondaryNoTap="{{true}}" toggleable="{{true}}"></mat-item></template>
             <template if="{{!collapsible && !emptyLabel}}"><mat-subheader id="matSublistHeader" inset="{{inset}}" label="{{label}}"></mat-subheader></template>
             <template if="{{(icon || iconSrc) && emptyLabel}}"><mat-icon id="matSublistIcon" name="{{icon}}" src="{{iconSrc}}"></mat-icon></template>
-            <xp-sublist context="{{}}" id="matSublistAdaptee" backward="{{true}}" collapsible="{{collapsible}}" collapsed="{{collapsed}}" easing="cubic-bezier(.55, 0, .01, 1)">
+            <xp-sublist context="{{}}" id="matSublistAdaptee" backward="{{true}}" collapsible="{{collapsible}}" collapsed="{{collapsed}}" easing="cubic-bezier(0.55, 0, 0.01, 1)">
                 <content id="content"></content>
             </xp-sublist>
             <mat-divider id="matSublistDividerBottom"></mat-divider>
