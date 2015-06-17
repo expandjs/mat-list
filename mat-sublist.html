@@ -1,0 +1,325 @@
+<!--
+@license
+Copyright (c) 2015 The ExpandJS authors. All rights reserved.
+This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
+The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
+-->
+
+<!--
+This element is used to display a material sublist.
+It must be used in conjunction with mat-list.
+
+@element mat-sublist
+@description A custom element used to display a Material Design sub-list
+@keywords material design, material list, web app, html5, expandjs, web-components
+@group navigation
+@homepage http://expandjs.com/elements/mat-sublist
+@demo http://expandjs.com/demo/mat-list
+
+@dependency polymer Polymer/polymer
+@dependency expandjs ExpandJS/expandjs
+@dependency mat-divider ExpandJS/mat-divider
+@dependency mat-icon ExpandJS/mat-icon
+@dependency mat-icons ExpandJS/mat-icons
+@dependency mat-item ExpandJS/mat-item
+@dependency mat-subheader ExpandJS/mat-subheader
+@dependency xp-list ExpandJS/xp-list
+@dependency xp-master-state ExpandJS/xp-master-state
+@dependency xp-slave-state ExpandJS/xp-slave-state
+
+@devDependency mat-demo ExpandJS/mat-demo
+@devDependency mat-item ExpandJS/mat-item
+@devDependency mat-paper ExpandJS/mat-paper
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../expandjs/expandjs.html">
+<link rel="import" href="../mat-divider/mat-divider.html">
+<link rel="import" href="../mat-icon/mat-icon.html">
+<link rel="import" href="../mat-icons/navigation-icons.html">
+<link rel="import" href="../mat-item/mat-item.html">
+<link rel="import" href="../mat-subheader/mat-subheader.html">
+<link rel="import" href="../xp-list/xp-sublist.html">
+<link rel="import" href="../xp-master-state/xp-master-state.html">
+<link rel="import" href="../xp-slave-state/xp-slave-state.html">
+<link rel="import" href="mat-list.html">
+
+<dom-module id="mat-sublist">
+
+    <style>
+        :host {
+            display: block;
+            overflow: visible;
+        }
+
+        :host #matSublistWrapper {
+            position: relative;
+        }
+
+        :host #matSublistDividerTop,
+        :host #matSublistDividerBottom {
+            height: 0;
+            margin: 0;
+        }
+
+        :host #matSublistAdaptee::shadow #xpSublistWrapper #xpCollapseWrapper ::content > mat-item[active] #matItemRipple #matRippleBackground {
+            opacity: 0.10;
+        }
+    </style>
+
+    <template>
+        <xp-master-state id="xpMasterState" slaves="{{sublists}}" slaveTag="mat-sublist"></xp-master-state>
+        <xp-slave-state master="{{list}}" masterTag="mat-list"></xp-slave-state>
+        <xp-slave-state master="{{superlist}}" masterTag="mat-sublist"></xp-slave-state>
+        <div id="matSublistWrapper">
+            <mat-divider id="matSublistDividerTop"></mat-divider>
+            <template is="dom-if" if="[[_hasCollapser(collapsible, label)]]" restamp><mat-item id="matSublistCollapser" active="{{collapsed}}" label="[[label]]" primary-icon="[[icon]]" primary-icon-src="[[iconSrc]]" secondary-icon="[[_computeArrowIcon(collapsed)]]" secondary-no-tap toggleable></mat-item></template>
+            <template is="dom-if" if="[[_hasHeader(collapsible, label)]]" restamp><mat-subheader id="matSublistHeader" inset="[[inset]]" label="[[label]]"></mat-subheader></template>
+            <template is="dom-if" if="[[_hasIcon(icon, iconSrc, label)]]" restamp><mat-icon id="matSublistIcon" name="[[icon]]" src="[[iconSrc]]"></mat-icon></template>
+            <xp-sublist id="matSublistAdaptee" backward collapsed="{{collapsed}}" easing="cubic-bezier(0.55, 0, 0.01, 1)"><content id="content"></content></xp-sublist>
+            <mat-divider id="matSublistDividerBottom"></mat-divider>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+
+            // ELEMENT
+            is: 'mat-sublist',
+
+            /*********************************************************************/
+
+            /**
+             * Collapses the sublist.
+             *
+             * @method collapse
+             * @returns {Element}
+             */
+            collapse: function () {
+                var self = this;
+                if (self.collapsible) { self.$.matSublistAdaptee.collapse(); }
+                return self;
+            },
+
+            /**
+             * Expands the sublist.
+             *
+             * @method expand
+             * @returns {Element}
+             */
+            expand: function () {
+                var self = this;
+                if (self.collapsible) { self.$.matSublistAdaptee.expand(); }
+                return self;
+            },
+
+            /**
+             * Toggles the collapsed state.
+             *
+             * @method toggle
+             * @returns {Element}
+             */
+            toggle: function () {
+                var self = this;
+                if (self.collapsible) { self.$.matSublistAdaptee.toggle(); }
+                return self;
+            },
+
+            /*********************************************************************/
+
+            // COMPUTED
+            computed: {
+                'emptyLabel': '!label',
+                'inset': '!!icon || !!iconSrc'
+            },
+
+            // PROPERTIES
+            properties: {
+
+                /**
+                 * If set to true, the sublist is collapsed.
+                 *
+                 * @attribute collapsed
+                 * @type boolean
+                 * @default false
+                 * @notifies
+                 */
+                collapsed: {
+                    notify: true,
+                    observer: '_collapsedChanged',
+                    reflectToAttribute: true,
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * If set to true, the sublist is collapsible.
+                 *
+                 * @attribute collapsible
+                 * @type string
+                 * @default false
+                 */
+                collapsible: {
+                    observer: '_collapsibleChanged',
+                    reflectToAttribute: true,
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * If set to true, the label is hidden.
+                 *
+                 * @attribute empty-label
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                emptyLabel: {
+                    computed: '_computeEmptyLabel(label)',
+                    notify: true,
+                    reflectToAttribute: true,
+                    type: Boolean
+                },
+
+                /**
+                 * The sublist's icon.
+                 *
+                 * @attribute icon
+                 * @type string
+                 */
+                icon: {
+                    reflectToAttribute: true,
+                    type: String,
+                    value: null
+                },
+
+                /**
+                 * The sublist's icon's src.
+                 *
+                 * @attribute icon-src
+                 * @type string
+                 */
+                iconSrc: {
+                    reflectToAttribute: true,
+                    type: String,
+                    value: null
+                },
+
+                /**
+                 * If set to true, the element is indented.
+                 *
+                 * @attribute inset
+                 * @type boolean
+                 * @default false
+                 * @notifies
+                 * @readonly
+                 */
+                inset: {
+                    computed: '_computeInset(icon, iconSrc)',
+                    notify: true,
+                    reflectToAttribute: true,
+                    type: Boolean
+                },
+
+                /**
+                 * The sublist's label.
+                 *
+                 * @attribute label
+                 * @type string
+                 */
+                label: {
+                    reflectToAttribute: true,
+                    type: String,
+                    value: null
+                },
+
+                /**
+                 * The master list.
+                 *
+                 * @attribute list
+                 * @type Element
+                 * @notifies
+                 * @readonly
+                 */
+                list: {
+                    notify: true,
+                    value: null
+                },
+
+                /**
+                 * The slave sublists.
+                 *
+                 * @attribute sublists
+                 * @type Array
+                 * @notifies
+                 * @readonly
+                 */
+                sublists: {
+                    notify: true,
+                    type: Array
+                },
+
+                /**
+                 * The master sublist.
+                 *
+                 * @property superlist
+                 * @type Element
+                 * @notifies
+                 * @readonly
+                 */
+                superlist: {
+                    notify: true,
+                    value: null
+                }
+            },
+
+            /*********************************************************************/
+
+            // COMPUTER
+            _computeArrowIcon: function (collapsed) {
+                return collapsed ? 'navigation:expand-more' : 'navigation:expand-less';
+            },
+
+            // COMPUTER
+            _computeEmptyLabel: function (label) {
+                return !label;
+            },
+
+            // COMPUTER
+            _computeInset: function (icon, iconSrc) {
+                return !!icon || !!iconSrc;
+            },
+
+            // COMPUTER
+            _hasCollapser: function (collapsible, label) {
+                return collapsible && !!label;
+            },
+
+            // COMPUTER
+            _hasHeader: function (collapsible, label) {
+                return !collapsible && !!label;
+            },
+
+            // COMPUTER
+            _hasIcon: function (icon, iconSrc, label) {
+                return (!!icon || !!iconSrc) && !label;
+            },
+
+            /*********************************************************************/
+
+            // OBSERVER
+            _collapsedChanged: function (post) {
+                var self = this;
+                if (post || (self.list && self.list.autoCollapseDisabled)) { return; }
+                XP.invoke(XP.findSiblingElements(self, 'mat-sublist'), 'collapse');
+            },
+
+            // OBSERVER
+            _collapsibleChanged: function (post) {
+                this.collapsed = this.collapsed && post;
+            }
+        });
+    </script>
+
+</dom-module>
