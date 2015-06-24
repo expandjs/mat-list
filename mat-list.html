@@ -109,7 +109,7 @@ It can be used in conjunction with mat-item and mat-sublist.
         }
 
         :host #matListWrapper ::content > mat-subheader,
-        :host #matListWrapper ::content mat-sublist:not([collapsible]):not([emptyLabel]) {
+        :host #matListWrapper ::content mat-sublist:not([collapsible]):not([empty-label]) {
             margin-top: -8px;
         }
     </style>
@@ -117,9 +117,10 @@ It can be used in conjunction with mat-item and mat-sublist.
     <template>
         <template is="xp-master-state" id="xpMasterState" slaves="{{sublists}}" slave-tag="mat-sublist"></template>
         <xp-list context="[[self]]" id="matListAdaptee" default-selected="[[defaultSelected]]"
-                 index-attribute="[[indexAttribute]]" items="{{items}}" item-selector="[[itemSelector]]"
-                 multi="[[multi]]" selected="{{selected}}" selection="{{selection}}" switchable="[[switchable]]"
-                 target="{{target}}">
+                 empty-items="{{emptyItems}}" index-attribute="[[indexAttribute]]" initialized="{{initialized}}"
+                 isMutated="{{isMutated}}" items="{{items}}" item-selector="[[itemSelector]]" multi="[[multi]]"
+                 mutating="{{mutating}}" selected="{{selected}}" selecting="{{selecting}}" selection="{{selection}}"
+                 single-item="{{singleItem}}" switchable="[[switchable]]" target="{{target}}">
             <mat-ink id="matListWrapper"><content id="content"></content></mat-ink>
         </xp-list>
     </template>
@@ -348,6 +349,20 @@ It can be used in conjunction with mat-item and mat-sublist.
                 },
 
                 /**
+                 * If set to true, there are no items.
+                 *
+                 * @attribute empty-items
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                emptyItems: {
+                    notify: true,
+                    reflectToAttribute: true,
+                    type: Boolean
+                },
+
+                /**
                  * The attribute used as index.
                  *
                  * @attribute index-attribute
@@ -357,6 +372,32 @@ It can be used in conjunction with mat-item and mat-sublist.
                     reflectToAttribute: true,
                     type: String,
                     value: null
+                },
+
+                /**
+                 * If set to true, the selector is initialized.
+                 *
+                 * @attribute initialized
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                initialized: {
+                    notify: true,
+                    type: Boolean
+                },
+
+                /**
+                 * If set to true, the mutation observer is set.
+                 *
+                 * @attribute isMutated
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                isMutated: {
+                    notify: true,
+                    type: Boolean
                 },
 
                 /**
@@ -399,6 +440,19 @@ It can be used in conjunction with mat-item and mat-sublist.
                 },
 
                 /**
+                 * If set to true, the selector is currently mutating.
+                 *
+                 * @attribute mutating
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                mutating: {
+                    notify: true,
+                    type: Boolean
+                },
+
+                /**
                  * The selected item's index.
                  *
                  * @attribute selected
@@ -424,6 +478,19 @@ It can be used in conjunction with mat-item and mat-sublist.
                 },
 
                 /**
+                 * If set to true, the selection is about to change.
+                 *
+                 * @attribute selecting
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                selecting: {
+                    notify: true,
+                    type: Boolean
+                },
+
+                /**
                  * The selected item.
                  *
                  * @attribute selection
@@ -434,6 +501,20 @@ It can be used in conjunction with mat-item and mat-sublist.
                 selection: {
                     notify: true,
                     value: null
+                },
+
+                /**
+                 * If set to true, there's only one item.
+                 *
+                 * @attribute single-item
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                singleItem: {
+                    notify: true,
+                    reflectToAttribute: true,
+                    type: Boolean
                 },
 
                 /**

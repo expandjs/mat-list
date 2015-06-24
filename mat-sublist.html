@@ -77,7 +77,7 @@ It must be used in conjunction with mat-list.
             <template is="dom-if" if="[[_hasCollapser(collapsible, label)]]" restamp><mat-item id="matSublistCollapser" active="{{collapsed}}" label="[[label]]" primary-icon="[[icon]]" primary-icon-src="[[iconSrc]]" secondary-icon="[[_computeArrowIcon(collapsed)]]" secondary-no-tap toggleable></mat-item></template>
             <template is="dom-if" if="[[_hasHeader(collapsible, label)]]" restamp><mat-subheader id="matSublistHeader" inset="[[inset]]" label="[[label]]"></mat-subheader></template>
             <template is="dom-if" if="[[_hasIcon(icon, iconSrc, label)]]" restamp><mat-icon id="matSublistIcon" name="[[icon]]" src="[[iconSrc]]"></mat-icon></template>
-            <xp-sublist id="matSublistAdaptee" backward collapsed="{{collapsed}}" collapsible="[[collapsible]]" easing="cubic-bezier(0.55, 0, 0.01, 1)"><content id="content"></content></xp-sublist>
+            <xp-sublist id="matSublistAdaptee" animatable="{{animatable}}" backward collapsed="{{collapsed}}" collapsible="[[collapsible]]" easing="cubic-bezier(0.55, 0, 0.01, 1)"><content id="content"></content></xp-sublist>
             <mat-divider id="matSublistDividerBottom"></mat-divider>
         </div>
     </template>
@@ -166,6 +166,20 @@ It must be used in conjunction with mat-list.
             properties: {
 
                 /**
+                 * If set to true, the animation can be executed.
+                 *
+                 * @attribute animatable
+                 * @type boolean
+                 * @default false
+                 * @notifies
+                 */
+                animatable: {
+                    notify: true,
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
                  * If set to true, the sublist is collapsed.
                  *
                  * @attribute collapsed
@@ -186,8 +200,10 @@ It must be used in conjunction with mat-list.
                  * @attribute collapsible
                  * @type string
                  * @default false
+                 * @notifies
                  */
                 collapsible: {
+                    notify: true,
                     reflectToAttribute: true,
                     type: Boolean,
                     value: false
