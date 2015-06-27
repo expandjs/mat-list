@@ -8,27 +8,25 @@
 
 <dom-module id="mat-list-demo">
 
-    <style>
-        :host .demo-container {
-            margin: auto;
-            max-width: 320px;
-        }
-    </style>
-
     <template>
-        <mat-demo label="mat-list">
 
-            <div class="demo-title">Default</div>
-            <mat-paper class="demo-container" z="2">
+        <mat-demo label="Default" padding-disabled>
+            <script type="text/html">
                 <mat-list label="Subheader">
                     <mat-item selectable label="Item 1"></mat-item>
                     <mat-item selectable label="Item 2"></mat-item>
                     <mat-item selectable label="Item 3"></mat-item>
                 </mat-list>
-            </mat-paper>
+            </script>
+            <mat-list label="Subheader">
+                <mat-item selectable label="Item 1"></mat-item>
+                <mat-item selectable label="Item 2"></mat-item>
+                <mat-item selectable label="Item 3"></mat-item>
+            </mat-list>
+        </mat-demo>
 
-            <div class="demo-title">Collapsible</div>
-            <mat-paper class="demo-container" z="2">
+        <mat-demo label="Collpsible" padding-disabled>
+            <script type="text/html">
                 <mat-list>
                     <mat-sublist label="Favorites" icon="action:stars" collapsible>
                         <mat-item selectable label="Alvin Kelley"></mat-item>
@@ -44,10 +42,26 @@
                         <mat-item selectable label="Oscar Vaughn"></mat-item>
                     </mat-sublist>
                 </mat-list>
-            </mat-paper>
+            </script>
+            <mat-list>
+                <mat-sublist label="Favorites" icon="action:stars" collapsible>
+                    <mat-item selectable label="Alvin Kelley"></mat-item>
+                    <mat-item selectable label="Lois Roy"></mat-item>
+                    <mat-item selectable label="Oscar Vaughn"></mat-item>
+                </mat-sublist>
+                <mat-sublist label="Contacts" icon="social:people" collapsible collapsed>
+                    <mat-item selectable label="Stanley Stokes"></mat-item>
+                    <mat-item selectable label="Alvin Kelley"></mat-item>
+                    <mat-item selectable label="Harold Gardner"></mat-item>
+                    <mat-item selectable label="Lois Roy"></mat-item>
+                    <mat-item selectable label="Gladys Frank"></mat-item>
+                    <mat-item selectable label="Oscar Vaughn"></mat-item>
+                </mat-sublist>
+            </mat-list>
+        </mat-demo>
 
-            <div class="demo-title">Sublists</div>
-            <mat-paper class="demo-container" z="2">
+        <mat-demo label="Sublists" padding-disabled>
+            <script type=text/html">
                 <mat-list>
                     <mat-sublist label="Items">
                         <mat-item selectable label="Item 1"></mat-item>
@@ -58,9 +72,19 @@
                         <a item href="https://www.polymer-project.org" target="_blank">Polymer</a>
                     </mat-sublist>
                 </mat-list>
-            </mat-paper>
-
+            </script>
+            <mat-list>
+                <mat-sublist label="Items">
+                    <mat-item selectable label="Item 1"></mat-item>
+                    <mat-item selectable label="Item 2"></mat-item>
+                </mat-sublist>
+                <mat-sublist label="Links">
+                    <a item href="http://expandjs.com" target="_blank">ExpandJS</a>
+                    <a item href="https://www.polymer-project.org" target="_blank">Polymer</a>
+                </mat-sublist>
+            </mat-list>
         </mat-demo>
+
     </template>
 
     <script>
