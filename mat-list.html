@@ -7,9 +7,47 @@ The complete set of contributors may be found at https://expandjs.github.io/CONT
 -->
 
 <!--
-This element is used to display a material list.
+An element used to display a [Material Design list](http://www.google.com/design/spec/components/lists.html).
 
-It can be used in conjunction with mat-item and mat-sublist.
+It should be used in conjunction with [mat-item](http://expandjs.com/elements/mat-item)
+and [mat-sublist](http://expandjs.com/elements/mat-sublist).
+
+```html
+<mat-list>
+    <mat-sublist label="Today">
+        <mat-item label="Item 1" selectable></mat-item>
+        <mat-item label="Item 2" selectable></mat-item>
+        ...
+        <mat-item label="Item n" selectable></mat-item>
+    </mat-sublist>
+    <mat-sublist label="Yesterday">
+        ...
+    <mat-sublist>
+</mat-list>
+```
+
+By default the list unselects an item if another one has been selected, however if you want to
+be able to `select`/`unselect` by tapping on the same item, you can set `switchable`.
+
+```html
+<mat-list switchable>
+    <mat-item label="Item 1" selectable></mat-item>
+    <mat-item label="Item 2" selectable></mat-item>
+    ...
+    <mat-item label="Item n" selectable></mat-item>
+</mat-list>
+```
+
+If you want to be able to select more than one item at a time, you can set `multi`.
+
+```html
+<mat-list multi>
+    <mat-item label="Item 1" selectable></mat-item>
+    <mat-item label="Item 2" selectable></mat-item>
+    ...
+    <mat-item label="Item n" selectable></mat-item>
+</mat-list>
+```
 
 @element mat-list
 @description A custom element used to display a Material Design list
@@ -21,22 +59,23 @@ It can be used in conjunction with mat-item and mat-sublist.
 
 @adapts xp-list /bower_components/xp-list/xp-list.html
 @behavior xp-adapter-behavior /bower_components/xp-adapter-behavior/xp-adapter-behavior.html
+@behavior xp-master-behavior /bower_components/xp-master-behavior/xp-master-behavior.html
 @behavior xp-referral-behavior /bower_components/xp-referral-behavior/xp-referral-behavior.html
 @behavior xp-targeter-behavior /bower_components/xp-targeter-behavior/xp-targeter-behavior.html
 
 @dependency polymer Polymer/polymer#^1.0.0
-@dependency expandjs ExpandJS/expandjs#0.9.5
-@dependency mat-ink ExpandJS/mat-ink#0.9.5
-@dependency xp-adapter-behavior ExpandJS/xp-adapter-behavior#0.9.5
-@dependency xp-list ExpandJS/xp-list#0.9.5
-@dependency xp-master-state ExpandJS/xp-master-state#0.9.5
-@dependency xp-referral-behavior ExpandJS/xp-referral-behavior#0.9.5
-@dependency xp-targeter-behavior ExpandJS/xp-targeter-behavior#0.9.5
+@dependency expandjs ExpandJS/expandjs#0.9.6
+@dependency mat-ink ExpandJS/mat-ink#0.9.6
+@dependency xp-adapter-behavior ExpandJS/xp-adapter-behavior#0.9.6
+@dependency xp-list ExpandJS/xp-list#0.9.6
+@dependency xp-master-behavior ExpandJS/xp-master-behavior#0.9.6
+@dependency xp-referral-behavior ExpandJS/xp-referral-behavior#0.9.6
+@dependency xp-targeter-behavior ExpandJS/xp-targeter-behavior#0.9.6
 
-@devDependency mat-demo ExpandJS/mat-demo#0.9.5
-@devDependency mat-icons ExpandJS/mat-icons#0.9.5
-@devDependency mat-item ExpandJS/mat-item#0.9.5
-@devDependency mat-paper ExpandJS/mat-paper#0.9.5
+@devDependency mat-demo ExpandJS/mat-demo#0.9.6
+@devDependency mat-icons ExpandJS/mat-icons#0.9.6
+@devDependency mat-item ExpandJS/mat-item#0.9.6
+@devDependency mat-paper ExpandJS/mat-paper#0.9.6
 -->
 
 <link rel="import" href="../polymer/polymer.html">
@@ -44,7 +83,7 @@ It can be used in conjunction with mat-item and mat-sublist.
 <link rel="import" href="../mat-ink/mat-ink.html">
 <link rel="import" href="../xp-adapter-behavior/xp-adapter-behavior.html">
 <link rel="import" href="../xp-list/xp-list.html">
-<link rel="import" href="../xp-master-state/xp-master-state.html">
+<link rel="import" href="../xp-master-behavior/xp-master-behavior.html">
 <link rel="import" href="../xp-referral-behavior/xp-referral-behavior.html">
 <link rel="import" href="../xp-targeter-behavior/xp-targeter-behavior.html">
 
@@ -99,10 +138,6 @@ It can be used in conjunction with mat-item and mat-sublist.
             margin-bottom: -1px;
         }
 
-        :host #matListWrapper ::content > mat-item[active] #matItemRipple #matRippleBackground {
-            opacity: 0.10;
-        }
-
         :host #matListWrapper ::content > mat-item:not(:last-of-type) #matItemDivider {
             display: block;
         }
@@ -121,12 +156,11 @@ It can be used in conjunction with mat-item and mat-sublist.
     </style>
 
     <template>
-        <template is="xp-master-state" id="xpMasterState" slaves="{{sublists}}" slave-tag="mat-sublist"></template>
-        <xp-list context="[[self]]" id="matListAdaptee" default-selected="[[defaultSelected]]"
-                 empty-items="{{emptyItems}}" index-attribute="[[indexAttribute]]" initialized="{{initialized}}"
+        <xp-list context="[[self]]" id="matListAdaptee" default-selected="[[defaultSelected]]" empty-items="{{emptyItems}}"
+                 empty-selection="{{emptySelection}}" index-attribute="[[indexAttribute]]" initialized="{{initialized}}"
                  isMutated="{{isMutated}}" items="{{items}}" item-selector="[[itemSelector]]" multi="[[multi]]"
                  mutating="{{mutating}}" selected="{{selected}}" selecting="{{selecting}}" selection="{{selection}}"
-                 single-item="{{singleItem}}" switchable="[[switchable]]" target="{{target}}">
+                 single-item="{{singleItem}}" switchable="[[switchable]]" target="[[target]]">
             <mat-ink id="matListWrapper"><content id="content"></content></mat-ink>
         </xp-list>
     </template>
@@ -140,6 +174,7 @@ It can be used in conjunction with mat-item and mat-sublist.
             // BEHAVIORS
             behaviors: [
                 Polymer.XPAdapterBehavior,
+                Polymer.XPMasterBehavior,
                 Polymer.XPReferralBehavior,
                 Polymer.XPTargeterBehavior
             ],
@@ -327,6 +362,19 @@ It can be used in conjunction with mat-item and mat-sublist.
 
             /*********************************************************************/
 
+            /**
+             * Returns the slaves map.
+             *
+             * @method _setupSlaves
+             * @returns {Object}
+             * @private
+             */
+            _setupSlaves: function () {
+                return {sublists: 'mat-sublist'};
+            },
+
+            /*********************************************************************/
+
             // LISTENERS
             listeners: {
                 'selection-changed': '_handleSelection'
@@ -354,6 +402,20 @@ It can be used in conjunction with mat-item and mat-sublist.
                  * @readonly
                  */
                 emptyItems: {
+                    notify: true,
+                    reflectToAttribute: true,
+                    type: Boolean
+                },
+
+                /**
+                 * If set to true, there are no selected items.
+                 *
+                 * @attribute empty-selection
+                 * @type boolean
+                 * @notifies
+                 * @readonly
+                 */
+                emptySelection: {
                     notify: true,
                     reflectToAttribute: true,
                     type: Boolean
@@ -524,7 +586,9 @@ It can be used in conjunction with mat-item and mat-sublist.
                  */
                 sublists: {
                     notify: true,
-                    type: Array
+                    readOnly: true,
+                    type: Array,
+                    value: function () { return []; }
                 },
 
                 /**
