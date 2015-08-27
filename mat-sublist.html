@@ -86,28 +86,29 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
 
 <dom-module id="mat-sublist">
 
-    <style>
-        :host {
-            display: block;
-            overflow: visible;
-        }
-
-        :host #matSublistWrapper {
-            position: relative;
-        }
-
-        :host #matSublistDividerTop,
-        :host #matSublistDividerBottom {
-            height: 0;
-            margin: 0;
-        }
-
-        :host #matSublistAdaptee::shadow #xpSublistWrapper #xpCollapseWrapper ::content > mat-item[active] #matItemRipple #matRippleBackground {
-            opacity: 0.10;
-        }
-    </style>
-
     <template>
+
+        <style>
+            :host {
+                display: block;
+                overflow: visible;
+            }
+
+            :host #matSublistWrapper {
+                position: relative;
+            }
+
+            :host #matSublistDividerTop,
+            :host #matSublistDividerBottom {
+                height: 0;
+                margin: 0;
+            }
+
+            :host #matSublistAdaptee::shadow #xpSublistWrapper #xpCollapseWrapper ::content > mat-item[active] #matItemRipple #matRippleBackground {
+                opacity: 0.10;
+            }
+        </style>
+
         <div id="matSublistWrapper">
             <mat-divider id="matSublistDividerTop"></mat-divider>
             <template is="dom-if" if="[[_hasCollapser(collapsible, label)]]" restamp><mat-item id="matSublistCollapser" label="[[label]]" primary-icon="[[icon]]" primary-icon-src="[[iconSrc]]" secondary-icon="[[_computeArrowIcon(collapsed)]]" on-xp-activate="_handleActivate" secondary-no-tap></mat-item></template>
@@ -116,6 +117,7 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
             <xp-sublist id="matSublistAdaptee" animatable="{{animatable}}" backward collapsed="{{collapsed}}" collapsible="[[collapsible]]" easing="cubic-bezier(0.55, 0, 0.01, 1)"><content id="content"></content></xp-sublist>
             <mat-divider id="matSublistDividerBottom"></mat-divider>
         </div>
+
     </template>
 
     <script>

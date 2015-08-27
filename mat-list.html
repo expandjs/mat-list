@@ -89,73 +89,74 @@ If you want to be able to select more than one item at a time, you can set `mult
 
 <dom-module id="mat-list">
 
-    <style>
-        :host {
-            display: block;
-            overflow: visible;
-        }
-
-        :host #matListWrapper {
-            padding: 8px 0;
-        }
-
-        :host #matListWrapper ::content [item=""] {
-            @apply(--mat-font-subhead);
-            cursor: pointer;
-            display: block;
-            line-height: 48px !important; /* override */
-            min-height: 48px;
-            outline: 0;
-            padding: 0 16px;
-            text-align: left;
-            text-decoration: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        :host #matListWrapper ::content [item=""][href]:hover {
-            text-decoration: underline;
-        }
-
-        :host #matListWrapper[foreground="dark"] ::content [item=""][active] {
-            background: hsla(0, 0%, 0%, 0.12);
-        }
-
-        :host #matListWrapper[foreground="light"] ::content [item=""][active] {
-            background: hsla(0, 0%, 100%, 0.12);
-        }
-
-        :host #matListWrapper[foreground="dark"] ::content > [item=""]:not(:last-of-type) {
-            border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
-            margin-bottom: -1px;
-        }
-
-        :host #matListWrapper[foreground="light"] ::content > [item=""]:not(:last-of-type) {
-            border-bottom: 1px solid hsla(0, 0%, 100%, 0.12);
-            margin-bottom: -1px;
-        }
-
-        :host #matListWrapper ::content > mat-item:not(:last-of-type) #matItemDivider {
-            display: block;
-        }
-
-        :host #matListWrapper ::content mat-sublist + mat-sublist[collapsible]:not([collapsed]) > #matSublistWrapper > #matSublistDividerTop,
-        :host #matListWrapper ::content mat-sublist[collapsible]:not([collapsed]):not(:last-of-type) > #matSublistWrapper > #matSublistDividerBottom,
-        :host #matListWrapper ::content mat-sublist:not([collapsible]):not(:last-of-type) > #matSublistWrapper > #matSublistDividerBottom {
-            height: auto;
-            margin: 7px 0 8px 0;
-        }
-
-        :host #matListWrapper ::content > mat-subheader,
-        :host #matListWrapper ::content mat-sublist:not([collapsible]):not([empty-label]) {
-            margin-top: -8px;
-        }
-    </style>
-
     <template>
+
+        <style>
+            :host {
+                display: block;
+                overflow: visible;
+            }
+
+            :host #matListWrapper {
+                padding: 8px 0;
+            }
+
+            :host #matListWrapper ::content [item=""] {
+                @apply(--mat-font-subhead);
+                cursor: pointer;
+                display: block;
+                line-height: 48px !important; /* override */
+                min-height: 48px;
+                outline: 0;
+                padding: 0 16px;
+                text-align: left;
+                text-decoration: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            :host #matListWrapper ::content [item=""][href]:hover {
+                text-decoration: underline;
+            }
+
+            :host #matListWrapper[foreground="dark"] ::content [item=""][active] {
+                background: hsla(0, 0%, 0%, 0.12);
+            }
+
+            :host #matListWrapper[foreground="light"] ::content [item=""][active] {
+                background: hsla(0, 0%, 100%, 0.12);
+            }
+
+            :host #matListWrapper[foreground="dark"] ::content > [item=""]:not(:last-of-type) {
+                border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
+                margin-bottom: -1px;
+            }
+
+            :host #matListWrapper[foreground="light"] ::content > [item=""]:not(:last-of-type) {
+                border-bottom: 1px solid hsla(0, 0%, 100%, 0.12);
+                margin-bottom: -1px;
+            }
+
+            :host #matListWrapper ::content > mat-item:not(:last-of-type) #matItemDivider {
+                display: block;
+            }
+
+            :host #matListWrapper ::content mat-sublist + mat-sublist[collapsible]:not([collapsed]) > #matSublistWrapper > #matSublistDividerTop,
+            :host #matListWrapper ::content mat-sublist[collapsible]:not([collapsed]):not(:last-of-type) > #matSublistWrapper > #matSublistDividerBottom,
+            :host #matListWrapper ::content mat-sublist:not([collapsible]):not(:last-of-type) > #matSublistWrapper > #matSublistDividerBottom {
+                height: auto;
+                margin: 7px 0 8px 0;
+            }
+
+            :host #matListWrapper ::content > mat-subheader,
+            :host #matListWrapper ::content mat-sublist:not([collapsible]):not([empty-label]) {
+                margin-top: -8px;
+            }
+        </style>
+
         <xp-list context="[[self]]" id="matListAdaptee" default-selected="[[defaultSelected]]" empty-items="{{emptyItems}}"
                  empty-selection="{{emptySelection}}" index-attribute="[[indexAttribute]]" initialized="{{initialized}}"
                  isMutated="{{isMutated}}" items="{{items}}" item-selector="[[itemSelector]]" multi="[[multi]]"
@@ -163,6 +164,7 @@ If you want to be able to select more than one item at a time, you can set `mult
                  single-item="{{singleItem}}" switchable="[[switchable]]" target="[[target]]">
             <mat-ink id="matListWrapper"><content id="content"></content></mat-ink>
         </xp-list>
+
     </template>
 
     <script>
