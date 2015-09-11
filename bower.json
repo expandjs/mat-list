@@ -1,7 +1,7 @@
 {
   "name": "mat-list",
   "license": "BSD-3-Clause",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "main": "mat-list.html",
   "description": "A custom element used to display a Material Design list",
   "homepage": "http://expandjs.com/elements/mat-list",
@@ -22,25 +22,25 @@
     "**/.*"
   ],
   "dependencies": {
-    "expandjs": "ExpandJS/expandjs#0.9.8",
-    "mat-divider": "ExpandJS/mat-divider#0.9.8",
-    "mat-icon": "ExpandJS/mat-icon#0.9.8",
-    "mat-icons": "ExpandJS/mat-icons#0.9.8",
-    "mat-ink": "ExpandJS/mat-ink#0.9.8",
-    "mat-item": "ExpandJS/mat-item#0.9.8",
-    "mat-subheader": "ExpandJS/mat-subheader#0.9.8",
-    "xp-adapter-behavior": "ExpandJS/xp-adapter-behavior#0.9.8",
-    "xp-list": "ExpandJS/xp-list#0.9.8",
-    "xp-master-behavior": "ExpandJS/xp-master-behavior#0.9.8",
-    "xp-referral-behavior": "ExpandJS/xp-referral-behavior#0.9.8",
-    "xp-slave-behavior": "ExpandJS/xp-slave-behavior#0.9.8",
-    "xp-targeter-behavior": "ExpandJS/xp-targeter-behavior#0.9.8",
+    "expandjs": "ExpandJS/expandjs#0.9.9",
+    "mat-divider": "ExpandJS/mat-divider#0.9.9",
+    "mat-icon": "ExpandJS/mat-icon#0.9.9",
+    "mat-icons": "ExpandJS/mat-icons#0.9.9",
+    "mat-ink": "ExpandJS/mat-ink#0.9.9",
+    "mat-item": "ExpandJS/mat-item#0.9.9",
+    "mat-subheader": "ExpandJS/mat-subheader#0.9.9",
+    "xp-adapter-behavior": "ExpandJS/xp-adapter-behavior#0.9.9",
+    "xp-list": "ExpandJS/xp-list#0.9.9",
+    "xp-master-behavior": "ExpandJS/xp-master-behavior#0.9.9",
+    "xp-referral-behavior": "ExpandJS/xp-referral-behavior#0.9.9",
+    "xp-slave-behavior": "ExpandJS/xp-slave-behavior#0.9.9",
+    "xp-targeter-behavior": "ExpandJS/xp-targeter-behavior#0.9.9",
     "polymer": "Polymer/polymer#^1.1.0"
   },
   "devDependencies": {
-    "mat-demo": "ExpandJS/mat-demo#0.9.8",
-    "mat-icons": "ExpandJS/mat-icons#0.9.8",
-    "mat-item": "ExpandJS/mat-item#0.9.8",
-    "mat-paper": "ExpandJS/mat-paper#0.9.8"
+    "mat-demo": "ExpandJS/mat-demo#0.9.9",
+    "mat-icons": "ExpandJS/mat-icons#0.9.9",
+    "mat-item": "ExpandJS/mat-item#0.9.9",
+    "mat-paper": "ExpandJS/mat-paper#0.9.9"
   }
 }
