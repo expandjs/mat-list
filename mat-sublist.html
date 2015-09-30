@@ -55,20 +55,20 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
 @behavior xp-slave-behavior /bower_components/xp-slave-behavior/xp-slave-behavior.html
 
 @dependency polymer Polymer/polymer#^1.1.0
-@dependency expandjs ExpandJS/expandjs#0.9.9
-@dependency mat-divider ExpandJS/mat-divider#0.9.9
-@dependency mat-icon ExpandJS/mat-icon#0.9.9
-@dependency mat-icons ExpandJS/mat-icons#0.9.9
-@dependency mat-item ExpandJS/mat-item#0.9.9
-@dependency mat-subheader ExpandJS/mat-subheader#0.9.9
-@dependency xp-adapter-behavior ExpandJS/xp-adapter-behavior#0.9.9
-@dependency xp-list ExpandJS/xp-list#0.9.9
-@dependency xp-master-behavior ExpandJS/xp-master-behavior#0.9.9
-@dependency xp-slave-behavior ExpandJS/xp-slave-behavior#0.9.9
+@dependency expandjs ExpandJS/expandjs#0.9.10
+@dependency mat-divider ExpandJS/mat-divider#0.9.10
+@dependency mat-icon ExpandJS/mat-icon#0.9.10
+@dependency mat-icons ExpandJS/mat-icons#0.9.10
+@dependency mat-item ExpandJS/mat-item#0.9.10
+@dependency mat-subheader ExpandJS/mat-subheader#0.9.10
+@dependency xp-adapter-behavior ExpandJS/xp-adapter-behavior#0.9.10
+@dependency xp-list ExpandJS/xp-list#0.9.10
+@dependency xp-master-behavior ExpandJS/xp-master-behavior#0.9.10
+@dependency xp-slave-behavior ExpandJS/xp-slave-behavior#0.9.10
 
-@devDependency mat-demo ExpandJS/mat-demo#0.9.9
-@devDependency mat-item ExpandJS/mat-item#0.9.9
-@devDependency mat-paper ExpandJS/mat-paper#0.9.9
+@devDependency mat-demo ExpandJS/mat-demo#0.9.10
+@devDependency mat-item ExpandJS/mat-item#0.9.10
+@devDependency mat-paper ExpandJS/mat-paper#0.9.10
 -->
 
 <link rel="import" href="../polymer/polymer.html">
@@ -281,6 +281,7 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                  *
                  * @attribute empty-label
                  * @type boolean
+                 * @default true
                  * @notifies
                  * @readonly
                  */
@@ -288,7 +289,8 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                     computed: '_computeEmptyLabel(label)',
                     notify: true,
                     reflectToAttribute: true,
-                    type: Boolean
+                    type: Boolean,
+                    value: true
                 },
 
                 /**
@@ -328,7 +330,8 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                     computed: '_computeInset(icon, iconSrc)',
                     notify: true,
                     reflectToAttribute: true,
-                    type: Boolean
+                    type: Boolean,
+                    value: false
                 },
 
                 /**
@@ -354,6 +357,7 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                 list: {
                     notify: true,
                     readOnly: true,
+                    type: Object,
                     value: null
                 },
 
@@ -383,6 +387,7 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                 superlist: {
                     notify: true,
                     readOnly: true,
+                    type: Object,
                     value: null
                 }
             },
