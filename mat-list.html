@@ -58,7 +58,6 @@ If you want to be able to select more than one item at a time, you can set `mult
 @demo http://expandjs.com/demo/mat-list
 
 @adapts xp-list /bower_components/xp-list/xp-list.html
-@behavior xp-adapter-behavior /bower_components/xp-adapter-behavior/xp-adapter-behavior.html
 @behavior xp-master-behavior /bower_components/xp-master-behavior/xp-master-behavior.html
 @behavior xp-referral-behavior /bower_components/xp-referral-behavior/xp-referral-behavior.html
 @behavior xp-targeter-behavior /bower_components/xp-targeter-behavior/xp-targeter-behavior.html
@@ -66,7 +65,6 @@ If you want to be able to select more than one item at a time, you can set `mult
 @dependency polymer Polymer/polymer#^1.0.0
 @dependency expandjs ExpandJS/expandjs#0.9.10
 @dependency mat-ink ExpandJS/mat-ink#0.9.10
-@dependency xp-adapter-behavior ExpandJS/xp-adapter-behavior#0.9.10
 @dependency xp-list ExpandJS/xp-list#0.9.10
 @dependency xp-master-behavior ExpandJS/xp-master-behavior#0.9.10
 @dependency xp-referral-behavior ExpandJS/xp-referral-behavior#0.9.10
@@ -81,7 +79,6 @@ If you want to be able to select more than one item at a time, you can set `mult
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../expandjs/expandjs.html">
 <link rel="import" href="../mat-ink/mat-ink.html">
-<link rel="import" href="../xp-adapter-behavior/xp-adapter-behavior.html">
 <link rel="import" href="../xp-list/xp-list.html">
 <link rel="import" href="../xp-master-behavior/xp-master-behavior.html">
 <link rel="import" href="../xp-referral-behavior/xp-referral-behavior.html">
@@ -175,7 +172,6 @@ If you want to be able to select more than one item at a time, you can set `mult
 
             // BEHAVIORS
             behaviors: [
-                Polymer.XPAdapterBehavior,
                 Polymer.XPMasterBehavior,
                 Polymer.XPReferralBehavior,
                 Polymer.XPTargeterBehavior
@@ -191,7 +187,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {number | string}
              */
             findIndex: function (identity) {
-                return this.$.matListAdaptee.findIndex(identity);
+                return this.adaptee.findIndex(identity);
             },
 
             /**
@@ -202,7 +198,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Element}
              */
             findItem: function (identity) {
-                return this.$.matListAdaptee.findItem(identity);
+                return this.adaptee.findItem(identity);
             },
 
             /**
@@ -213,7 +209,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Array}
              */
             findItems: function (predicate) {
-                return this.$.matListAdaptee.findItems(predicate);
+                return this.adaptee.findItems(predicate);
             },
 
             /**
@@ -224,7 +220,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {number | string}
              */
             findLastIndex: function (identity) {
-                return this.$.matListAdaptee.findLastIndex(identity);
+                return this.adaptee.findLastIndex(identity);
             },
 
             /**
@@ -235,7 +231,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Element}
              */
             findLastItem: function (identity) {
-                return this.$.matListAdaptee.findLastItem(identity);
+                return this.adaptee.findLastItem(identity);
             },
 
             /**
@@ -246,7 +242,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {boolean}
              */
             isSelectable: function (identity) {
-                return this.$.matListAdaptee.isSelectable(identity);
+                return this.adaptee.isSelectable(identity);
             },
 
             /**
@@ -257,7 +253,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {boolean}
              */
             isSelected: function (identity) {
-                return this.$.matListAdaptee.isSelected(identity);
+                return this.adaptee.isSelected(identity);
             },
 
             /**
@@ -269,7 +265,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {boolean}
              */
             isUnselectable: function (identity, force) {
-                return this.$.matListAdaptee.isUnselectable(identity, force);
+                return this.adaptee.isUnselectable(identity, force);
             },
 
             /**
@@ -280,7 +276,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Element}
              */
             select: function (identity) {
-                return this.$.matListAdaptee.select(identity);
+                return this.adaptee.select(identity);
             },
 
             /**
@@ -291,7 +287,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Array}
              */
             selectAll: function (predicate) {
-                return this.$.matListAdaptee.selectAll(predicate);
+                return this.adaptee.selectAll(predicate);
             },
 
             /**
@@ -301,7 +297,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Element}
              */
             selectNext: function () {
-                return this.$.matListAdaptee.selectNext();
+                return this.adaptee.selectNext();
             },
 
             /**
@@ -311,7 +307,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Element}
              */
             selectPrevious: function () {
-                return this.$.matListAdaptee.selectPrevious();
+                return this.adaptee.selectPrevious();
             },
 
             /**
@@ -323,7 +319,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Element}
              */
             switch: function (identity, force) {
-                return this.$.matListAdaptee.switch(identity, force);
+                return this.adaptee.switch(identity, force);
             },
 
             /**
@@ -335,7 +331,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Array}
              */
             switchAll: function (predicate, force) {
-                return this.$.matListAdaptee.switchAll(predicate, force);
+                return this.adaptee.switchAll(predicate, force);
             },
 
             /**
@@ -347,7 +343,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Element}
              */
             unselect: function (identity, force) {
-                return this.$.matListAdaptee.unselect(identity, force);
+                return this.adaptee.unselect(identity, force);
             },
 
             /**
@@ -359,7 +355,7 @@ If you want to be able to select more than one item at a time, you can set `mult
              * @returns {Array}
              */
             unselectAll: function (predicate, force) {
-                return this.$.matListAdaptee.unselectAll(predicate, force);
+                return this.adaptee.unselectAll(predicate, force);
             },
 
             /*********************************************************************/
@@ -384,6 +380,21 @@ If you want to be able to select more than one item at a time, you can set `mult
 
             // PROPERTIES
             properties: {
+
+                /**
+                 * The adapted element.
+                 *
+                 * @attribute adaptee
+                 * @type Element
+                 * @notifies
+                 * @readonly
+                 */
+                adaptee: {
+                    notify: true,
+                    readOnly: true,
+                    type: Object,
+                    value: null
+                },
 
                 /**
                  * The index of the item to select by default.
@@ -612,7 +623,7 @@ If you want to be able to select more than one item at a time, you can set `mult
 
             // LISTENER
             ready: function () {
-                this._adapt(this.$.matListAdaptee);
+                this._setAdaptee(this.$.matListAdaptee);
             },
 
             /*********************************************************************/
