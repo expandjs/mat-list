@@ -1,8 +1,6 @@
 <link rel="import" href="../mat-demo/mat-demo.html">
-<link rel="import" href="../mat-icons/action-icons.html">
-<link rel="import" href="../mat-icons/social-icons.html">
+<link rel="import" href="../mat-icons/mat-icons.html">
 <link rel="import" href="../mat-item/mat-item.html">
-<link rel="import" href="../mat-paper/mat-paper.html">
 <link rel="import" href="mat-list.html">
 <link rel="import" href="mat-sublist.html">
 
@@ -10,79 +8,79 @@
 
     <template>
 
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
         <mat-demo name="mat-list" type="element" url="http://expandjs.com/elements/mat-list">
 
             <mat-demo-panel label="Default" padding-disabled>
                 <script type="text/html">
-                    <mat-list label="Subheader">
-                        <mat-item selectable label="Item 1"></mat-item>
-                        <mat-item selectable label="Item 2"></mat-item>
-                        <mat-item selectable label="Item 3"></mat-item>
+                    <mat-list label="Subheader" selectable>
+                        <mat-item class="selectable" label="Item 1"></mat-item>
+                        <mat-item class="selectable" label="Item 2"></mat-item>
+                        <mat-item class="selectable" label="Item 3"></mat-item>
                     </mat-list>
                 </script>
-                <mat-list label="Subheader">
-                    <mat-item selectable label="Item 1"></mat-item>
-                    <mat-item selectable label="Item 2"></mat-item>
-                    <mat-item selectable label="Item 3"></mat-item>
+                <mat-list label="Subheader" selectable>
+                    <mat-item class="selectable" label="Item 1"></mat-item>
+                    <mat-item class="selectable" label="Item 2"></mat-item>
+                    <mat-item class="selectable" label="Item 3"></mat-item>
                 </mat-list>
             </mat-demo-panel>
 
             <mat-demo-panel label="Collpsible" padding-disabled>
                 <script type="text/html">
-                    <mat-list>
-                        <mat-sublist label="Favorites" icon="action:stars" collapsible>
-                            <mat-item selectable label="Alvin Kelley"></mat-item>
-                            <mat-item selectable label="Lois Roy"></mat-item>
-                            <mat-item selectable label="Oscar Vaughn"></mat-item>
+                    <mat-list style="height: 272px" selectable>
+                        <mat-sublist label="Favorites" icon="mat:stars" collapsible>
+                            <mat-item class="selectable" label="Alvin Kelley"></mat-item>
+                            <mat-item class="selectable" label="Lois Roy"></mat-item>
+                            <mat-item class="selectable" label="Oscar Vaughn"></mat-item>
                         </mat-sublist>
-                        <mat-sublist label="Contacts" icon="social:people" collapsible collapsed>
-                            <mat-item selectable label="Stanley Stokes"></mat-item>
-                            <mat-item selectable label="Alvin Kelley"></mat-item>
-                            <mat-item selectable label="Harold Gardner"></mat-item>
-                            <mat-item selectable label="Lois Roy"></mat-item>
-                            <mat-item selectable label="Gladys Frank"></mat-item>
-                            <mat-item selectable label="Oscar Vaughn"></mat-item>
+                        <mat-sublist label="Contacts" icon="mat:people" collapsible collapsed>
+                            <mat-item class="selectable" label="Stanley Stokes"></mat-item>
+                            <mat-item class="selectable" label="Alvin Kelley"></mat-item>
+                            <mat-item class="selectable" label="Harold Gardner"></mat-item>
                         </mat-sublist>
                     </mat-list>
                 </script>
-                <mat-list>
-                    <mat-sublist label="Favorites" icon="action:stars" collapsible>
-                        <mat-item selectable label="Alvin Kelley"></mat-item>
-                        <mat-item selectable label="Lois Roy"></mat-item>
-                        <mat-item selectable label="Oscar Vaughn"></mat-item>
+                <mat-list style="height: 272px" selectable>
+                    <mat-sublist label="Favorites" icon="mat:stars" collapsible>
+                        <mat-item class="selectable" label="Alvin Kelley"></mat-item>
+                        <mat-item class="selectable" label="Lois Roy"></mat-item>
+                        <mat-item class="selectable" label="Oscar Vaughn"></mat-item>
                     </mat-sublist>
-                    <mat-sublist label="Contacts" icon="social:people" collapsible collapsed>
-                        <mat-item selectable label="Stanley Stokes"></mat-item>
-                        <mat-item selectable label="Alvin Kelley"></mat-item>
-                        <mat-item selectable label="Harold Gardner"></mat-item>
-                        <mat-item selectable label="Lois Roy"></mat-item>
-                        <mat-item selectable label="Gladys Frank"></mat-item>
-                        <mat-item selectable label="Oscar Vaughn"></mat-item>
+                    <mat-sublist label="Contacts" icon="mat:people" collapsible collapsed>
+                        <mat-item class="selectable" label="Stanley Stokes"></mat-item>
+                        <mat-item class="selectable" label="Alvin Kelley"></mat-item>
+                        <mat-item class="selectable" label="Harold Gardner"></mat-item>
                     </mat-sublist>
                 </mat-list>
             </mat-demo-panel>
 
             <mat-demo-panel label="Sublists" padding-disabled>
                 <script type="text/html">
-                    <mat-list>
+                    <mat-list selectable>
                         <mat-sublist label="Items">
-                            <mat-item selectable label="Item 1"></mat-item>
-                            <mat-item selectable label="Item 2"></mat-item>
+                            <div class="selectable item">Item 1</div>
+                            <div class="selectable item">Item 2</div>
                         </mat-sublist>
                         <mat-sublist label="Links">
-                            <a item href="http://expandjs.com" target="_blank">ExpandJS</a>
-                            <a item href="https://www.polymer-project.org" target="_blank">Polymer</a>
+                            <a class="item" href="http://expandjs.com" target="_blank">ExpandJS</a>
+                            <a class="item" href="https://www.polymer-project.org" target="_blank">Polymer</a>
                         </mat-sublist>
                     </mat-list>
                 </script>
-                <mat-list>
+                <mat-list selectable>
                     <mat-sublist label="Items">
-                        <mat-item selectable label="Item 1"></mat-item>
-                        <mat-item selectable label="Item 2"></mat-item>
+                        <div class="selectable item">Item 1</div>
+                        <div class="selectable item">Item 2</div>
                     </mat-sublist>
                     <mat-sublist label="Links">
-                        <mat-item href="http://expandjs.com" target="_blank">ExpandJS</mat-item>
-                        <mat-item href="https://www.polymer-project.org" target="_blank">Polymer</mat-item>
+                        <a class="item" href="http://expandjs.com" target="_blank">ExpandJS</a>
+                        <a class="item" href="https://www.polymer-project.org" target="_blank">Polymer</a>
                     </mat-sublist>
                 </mat-list>
             </mat-demo-panel>

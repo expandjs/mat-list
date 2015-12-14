@@ -7,17 +7,18 @@ The complete set of contributors may be found at https://expandjs.github.io/CONT
 -->
 
 <!--
-An element used to display a [Material Design sublist](http://www.google.com/design/spec/components/lists-controls.html#lists-controls-types-of-list-controls).
+A custom element used to display a [Material Design sublist](http://www.google.com/design/spec/components/lists-controls.html#lists-controls-types-of-list-controls).
 
-It must be used in conjunction with [mat-list](http://expandjs.com/elements/mat-list).
+It must be used in conjunction with
+[mat-list](http://expandjs.com/elements/mat-list).
 
 ```html
-<mat-list>
+<mat-list selectable>
     <mat-sublist label="Today">
-        <mat-item label="Item 1" selectable></mat-item>
-        <mat-item label="Item 2" selectable></mat-item>
+        <mat-item label="Item 1"></mat-item>
+        <mat-item label="Item 2"></mat-item>
         ...
-        <mat-item label="Item n" selectable></mat-item>
+        <mat-item label="Item n"></mat-item>
     </mat-sublist>
     <mat-sublist label="Yesterday">
         ...
@@ -28,12 +29,12 @@ It must be used in conjunction with [mat-list](http://expandjs.com/elements/mat-
 To make the sublist able to collapse and expand you need to set `collapsible`.
 
 ```html
-<mat-list>
+<mat-list selectable>
     <mat-sublist label="To do" icon="image:assistant-photo" collapsible>
-        <mat-item label="Thingy 1" selectable></mat-item>
-        <mat-item label="Thingy 2" selectable></mat-item>
+        <mat-item label="Thingy 1"></mat-item>
+        <mat-item label="Thingy 2"></mat-item>
         ...
-        <mat-item label="Thingy n" selectable></mat-item>
+        <mat-item label="Thingy n"></mat-item>
     </mat-sublist>
     <mat-sublist label="Already finished" icon="action:done-all" collapsible collapsed>
         ...
@@ -42,77 +43,126 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
 ```
 
 @element mat-sublist
-@description A custom element used to display a Material Design sub-list
-@keywords material design, material list, web app, html5, expandjs, web-components
+@description A custom element used to display a Material Design sublist
+@keywords material design, material list, expandjs, web app, custom elements, web-components
 @group navigation
+@hot
+
 @homepage http://expandjs.com/elements/mat-sublist
-@repository https://github.com/ExpandJS/mat-sublist
+@repository https://github.com/ExpandJS/mat-list
 @demo http://expandjs.com/demo/mat-list
 
-@adapts xp-sublist /bower_components/xp-list/xp-sublist.html
-@behavior xp-master-behavior /bower_components/xp-master-behavior/xp-master-behavior.html
-@behavior xp-slave-behavior /bower_components/xp-slave-behavior/xp-slave-behavior.html
+@behavior xp-sublist-behavior /bower_components/xp-list-behavior/xp-sublist-behavior.html
 
-@dependency polymer Polymer/polymer#^1.1.0
-@dependency expandjs ExpandJS/expandjs#0.9.11
-@dependency mat-divider ExpandJS/mat-divider#0.9.11
-@dependency mat-icon ExpandJS/mat-icon#0.9.11
-@dependency mat-icons ExpandJS/mat-icons#0.9.11
-@dependency mat-item ExpandJS/mat-item#0.9.11
-@dependency mat-subheader ExpandJS/mat-subheader#0.9.11
-@dependency xp-list ExpandJS/xp-list#0.9.11
-@dependency xp-master-behavior ExpandJS/xp-master-behavior#0.9.11
-@dependency xp-slave-behavior ExpandJS/xp-slave-behavior#0.9.11
+@dependency polymer Polymer/polymer#^1.2.0
+@dependency expandjs ExpandJS/expandjs#0.10.0
+@dependency mat-divider ExpandJS/mat-divider#0.10.0
+@dependency mat-icon ExpandJS/mat-icon#0.10.0
+@dependency mat-icon-button ExpandJS/mat-icon-button#0.10.0
+@dependency mat-icons ExpandJS/mat-icons#0.10.0
+@dependency mat-item ExpandJS/mat-item#0.10.0
+@dependency mat-subheader ExpandJS/mat-subheader#0.10.0
+@dependency xp-list ExpandJS/xp-list#0.10.0
 
-@devDependency mat-demo ExpandJS/mat-demo#0.9.11
-@devDependency mat-item ExpandJS/mat-item#0.9.11
-@devDependency mat-paper ExpandJS/mat-paper#0.9.11
+@devDependency mat-demo ExpandJS/mat-demo#0.10.0
 -->
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../expandjs/expandjs.html">
 <link rel="import" href="../mat-divider/mat-divider.html">
 <link rel="import" href="../mat-icon/mat-icon.html">
-<link rel="import" href="../mat-icons/navigation-icons.html">
+<link rel="import" href="../mat-icon-button/mat-icon-button.html">
+<link rel="import" href="../mat-icons/mat-icons.html">
 <link rel="import" href="../mat-item/mat-item.html">
 <link rel="import" href="../mat-subheader/mat-subheader.html">
-<link rel="import" href="../xp-list/xp-sublist.html">
-<link rel="import" href="../xp-master-behavior/xp-master-behavior.html">
-<link rel="import" href="../xp-slave-behavior/xp-slave-behavior.html">
-<link rel="import" href="mat-list.html">
+<link rel="import" href="../xp-list-behavior/xp-sublist-behavior.html">
+<link rel="import" href="../xp-list-behavior/xp-sublist-styles.html">
 
 <dom-module id="mat-sublist">
 
-    <template>
+    <template strip-whitespace>
+
+        <style include="xp-sublist-styles"></style>
 
         <style>
-            :host {
-                display: block;
-                overflow: visible;
+            :host .divider {
+                -webkit-transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1), opacity 0.330s cubic-bezier(0.55, 0, 0.01, 1);
+                transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1), opacity 0.330s cubic-bezier(0.55, 0, 0.01, 1);
             }
 
-            :host #matSublistWrapper {
-                position: relative;
-            }
-
-            :host #matSublistDividerTop,
-            :host #matSublistDividerBottom {
+            :host([collapsible][collapsed]) .divider,
+            :host([collapsible]:not([collapsed]):first-of-type) .divider.cap,
+            :host([collapsible]:not([collapsed]):last-of-type) .divider.baseline,
+            :host(:not([collapsible])) .divider.cap,
+            :host(:not([collapsible]):last-of-type) .divider.baseline {
                 height: 0;
-                margin: 0;
+                opacity: 0;
+                padding: 0;
+                -webkit-transform: translateY(0px);
+                transform: translateY(0px);
+                -webkit-transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
+                transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
             }
 
-            :host #matSublistAdaptee::shadow #xpSublistWrapper #xpCollapseWrapper ::content > mat-item[active] #matItemRipple #matRippleBackground {
-                opacity: 0.10;
+            :host .translate {
+                transform: translateY(0px);
+            }
+
+            :host .translate > :not(template) {
+                -webkit-transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
+                transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
+            }
+
+            :host(:not([collapsed]):not(:first-of-type)) .translate {
+                -webkit-transform: translateY(-16px);
+                transform: translateY(-16px);
+            }
+
+            :host(:not([collapsed]):not(:first-of-type)) .translate > :not(template) {
+                -webkit-transform: translateY(16px);
+                transform: translateY(16px);
+            }
+
+            :host(:not([inset])) .collapser .primary {
+                display: none !important;
+            }
+
+            :host .collapser .secondary {
+                pointer-events: none !important;
+            }
+
+            :host([collapsed]) .collapser .secondary {
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
             }
         </style>
 
-        <div id="matSublistWrapper">
-            <mat-divider id="matSublistDividerTop"></mat-divider>
-            <template is="dom-if" if="[[_hasCollapser(collapsible, label)]]" restamp><mat-item id="matSublistCollapser" label="[[label]]" primary-icon="[[icon]]" primary-icon-src="[[iconSrc]]" secondary-icon="[[_computeArrowIcon(collapsed)]]" on-xp-activate="_handleActivate" secondary-no-tap></mat-item></template>
-            <template is="dom-if" if="[[_hasHeader(collapsible, label)]]" restamp><mat-subheader id="matSublistHeader" inset="[[inset]]" label="[[label]]"></mat-subheader></template>
-            <template is="dom-if" if="[[_hasIcon(icon, iconSrc, label)]]" restamp><mat-icon id="matSublistIcon" name="[[icon]]" src="[[iconSrc]]"></mat-icon></template>
-            <xp-sublist id="matSublistAdaptee" animatable="{{animatable}}" backward collapsed="{{collapsed}}" collapsible="[[collapsible]]" easing="cubic-bezier(0.55, 0, 0.01, 1)"><content id="content"></content></xp-sublist>
-            <mat-divider id="matSublistDividerBottom"></mat-divider>
+        <mat-divider class="cap divider"></mat-divider>
+
+        <div class="translate">
+
+            <template is="dom-if" if="[[_hasCollapser(collapsible, label)]]" restamp>
+                <mat-item class="collapser" label="[[label]]" on-xp-activate="toggle">
+                    <mat-icon-button class="primary button" icon="[[icon]]" icon-src="[[iconSrc]]"></mat-icon-button>
+                    <mat-icon-button class="secondary button" icon="mat:expand-less"></mat-icon-button>
+                </mat-item>
+            </template>
+
+            <template is="dom-if" if="[[_hasHeader(collapsible, label)]]" restamp>
+                <mat-subheader class="subheader" inset="[[inset]]" label="[[label]]"></mat-subheader>
+            </template>
+
+            <template is="dom-if" if="[[_hasIcon(icon, iconSrc, label)]]" restamp>
+                <mat-icon class="icon" name="[[icon]]" src="[[iconSrc]]"></mat-icon>
+            </template>
+
+            <div class="wrapper">
+                <div class="collapsible">
+                    <content></content>
+                    <mat-divider class="baseline divider"></mat-divider>
+                </div>
+            </div>
+
         </div>
 
     </template>
@@ -125,183 +175,37 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
 
             // BEHAVIORS
             behaviors: [
-                Polymer.XPMasterBehavior,
-                Polymer.XPSlaveBehavior
+                Polymer.XPSublistBehavior
             ],
 
             /*********************************************************************/
-
-            /**
-             * Collapses the sublist.
-             *
-             * @method collapse
-             * @returns {Element}
-             */
-            collapse: function () {
-                var self = this;
-                self.adaptee.collapse();
-                return self;
-            },
-
-            /**
-             * Expands the sublist.
-             *
-             * @method expand
-             * @returns {Element}
-             */
-            expand: function () {
-                var self = this;
-                self.adaptee.expand();
-                return self;
-            },
-
-            /**
-             * Toggles the collapsed state.
-             *
-             * @method toggle
-             * @returns {Element}
-             */
-            toggle: function () {
-                var self = this;
-                self.adaptee.toggle();
-                return self;
-            },
-
-            /*********************************************************************/
-
-            /**
-             * Refreshes the element.
-             *
-             * @method _refresh
-             * @returns {Element}
-             * @private
-             */
-            _refresh: function () {
-
-                // Vars
-                var self = this;
-
-                // Checking
-                if (!self.isAttached || !self.list) { return self; }
-
-                // Collapsing
-                if (!self.collapsed && self.collapsible && !self.list.autoCollapseDisabled) { XP.invoke(XP.findSiblingElements(self, 'mat-sublist'), 'collapse'); }
-
-                return self;
-            },
-
-            /**
-             * Returns the masters map.
-             *
-             * @method _setupMasters
-             * @returns {Object}
-             * @private
-             */
-            _setupMasters: function () {
-                return {list: 'mat-list', superlist: 'mat-sublist'};
-            },
-
-            /**
-             * Returns the slaves map.
-             *
-             * @method _setupSlaves
-             * @returns {Object}
-             * @private
-             */
-            _setupSlaves: function () {
-                return {sublists: 'mat-sublist'};
-            },
-
-            /*********************************************************************/
-
-            // COMPUTED
-            computed: {
-                'emptyLabel': '!label',
-                'inset': '!!icon || !!iconSrc'
-            },
-
-            // OBSERVERS
-            observers: [
-                '_refresh(collapsed, collapsible, list)'
-            ],
 
             // PROPERTIES
             properties: {
 
                 /**
-                 * The adapted element.
+                 * If set to true, the collapse animation will be a slide instead of a compress.
                  *
-                 * @attribute adaptee
-                 * @type Element
-                 * @notifies
-                 * @readonly
-                 */
-                adaptee: {
-                    notify: true,
-                    readOnly: true,
-                    type: Object,
-                    value: null
-                },
-
-                /**
-                 * If set to true, the animation can be executed.
-                 *
-                 * @attribute animatable
-                 * @type boolean
-                 * @default false
-                 * @notifies
-                 */
-                animatable: {
-                    notify: true,
-                    type: Boolean,
-                    value: false
-                },
-
-                /**
-                 * If set to true, the sublist is collapsed.
-                 *
-                 * @attribute collapsed
-                 * @type boolean
-                 * @default false
-                 * @notifies
-                 */
-                collapsed: {
-                    notify: true,
-                    reflectToAttribute: true,
-                    type: Boolean,
-                    value: false
-                },
-
-                /**
-                 * If set to true, the sublist is collapsible.
-                 *
-                 * @attribute collapsible
-                 * @type string
-                 * @default false
-                 * @notifies
-                 */
-                collapsible: {
-                    notify: true,
-                    reflectToAttribute: true,
-                    type: Boolean,
-                    value: false
-                },
-
-                /**
-                 * If set to true, the label is hidden.
-                 *
-                 * @attribute empty-label
+                 * @attribute backward
                  * @type boolean
                  * @default true
-                 * @notifies
-                 * @readonly
                  */
-                emptyLabel: {
-                    computed: '_computeEmptyLabel(label)',
-                    notify: true,
+                backward: {
                     reflectToAttribute: true,
                     type: Boolean,
                     value: true
+                },
+
+                /**
+                 * The animation's easing.
+                 *
+                 * @attribute easing
+                 * @type string
+                 * @default "cubic-bezier(0.55, 0, 0.01, 1)"
+                 */
+                easing: {
+                    type: String,
+                    value: 'cubic-bezier(0.55, 0, 0.01, 1)'
                 },
 
                 /**
@@ -311,9 +215,9 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                  * @type string
                  */
                 icon: {
+                    observer: '_iconChanged',
                     reflectToAttribute: true,
-                    type: String,
-                    value: null
+                    type: String
                 },
 
                 /**
@@ -323,9 +227,9 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                  * @type string
                  */
                 iconSrc: {
+                    observer: '_iconChanged',
                     reflectToAttribute: true,
-                    type: String,
-                    value: null
+                    type: String
                 },
 
                 /**
@@ -338,8 +242,8 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                  * @readonly
                  */
                 inset: {
-                    computed: '_computeInset(icon, iconSrc)',
                     notify: true,
+                    readOnly: true,
                     reflectToAttribute: true,
                     type: Boolean,
                     value: false
@@ -353,76 +257,15 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                  */
                 label: {
                     reflectToAttribute: true,
-                    type: String,
-                    value: null
-                },
-
-                /**
-                 * The master list.
-                 *
-                 * @attribute list
-                 * @type Element
-                 * @notifies
-                 * @readonly
-                 */
-                list: {
-                    notify: true,
-                    readOnly: true,
-                    type: Object,
-                    value: null
-                },
-
-                /**
-                 * The slave sublists.
-                 *
-                 * @attribute sublists
-                 * @type Array
-                 * @notifies
-                 * @readonly
-                 */
-                sublists: {
-                    notify: true,
-                    readOnly: true,
-                    type: Array,
-                    value: function () { return []; }
-                },
-
-                /**
-                 * The master sublist.
-                 *
-                 * @attribute superlist
-                 * @type Element
-                 * @notifies
-                 * @readonly
-                 */
-                superlist: {
-                    notify: true,
-                    readOnly: true,
-                    type: Object,
-                    value: null
+                    type: String
                 }
             },
 
             /*********************************************************************/
 
             // COMPUTER
-            _computeArrowIcon: function (collapsed) {
-                return collapsed ? 'navigation:expand-more' : 'navigation:expand-less';
-            },
-
-            // COMPUTER
-            _computeEmptyLabel: function (label) {
-                return !label;
-            },
-
-            // COMPUTER
-            _computeInset: function (icon, iconSrc) {
-                return !!icon || !!iconSrc;
-            },
-
-            // COMPUTER
             _hasCollapser: function (collapsible, label) {
-                return collapsible && !!label;
+                return !!collapsible && !!label;
             },
 
             // COMPUTER
@@ -437,16 +280,11 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
 
             /*********************************************************************/
 
-            // LISTENER
-            ready: function () {
-                this._setAdaptee(this.$.matSublistAdaptee);
-            },
+            // OBSERVER
+            _iconChanged: function () {
 
-            /*********************************************************************/
-
-            // HANDLER
-            _handleActivate: function () {
-                this.toggle();
+                // Setting
+                this._setInset(!!this.icon || !!this.iconSrc);
             }
         });
     </script>
