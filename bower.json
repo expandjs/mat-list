@@ -31,7 +31,7 @@
     "mat-item": "ExpandJS/mat-item#0.10.0",
     "mat-subheader": "ExpandJS/mat-subheader#0.10.0",
     "mat-typography": "ExpandJS/mat-typography#0.10.0",
-    "xp-list": "ExpandJS/xp-list#0.10.0",
+    "xp-list-behavior": "ExpandJS/xp-list-behavior#0.10.0",
     "polymer": "Polymer/polymer#^1.2.0"
   },
   "devDependencies": {
