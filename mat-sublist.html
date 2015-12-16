@@ -86,8 +86,7 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
 
         <style>
             :host .divider {
-                -webkit-transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1), opacity 0.330s cubic-bezier(0.55, 0, 0.01, 1);
-                transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1), opacity 0.330s cubic-bezier(0.55, 0, 0.01, 1);
+                transition: opacity 0.330s cubic-bezier(0.55, 0, 0.01, 1), transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
             }
 
             :host([collapsible][collapsed]) .divider,
@@ -98,9 +97,7 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
                 height: 0;
                 opacity: 0;
                 padding: 0;
-                -webkit-transform: translateY(0px);
                 transform: translateY(0px);
-                -webkit-transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
                 transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
             }
 
@@ -109,17 +106,14 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
             }
 
             :host .translate > :not(template) {
-                -webkit-transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
                 transition: transform 0.330s cubic-bezier(0.55, 0, 0.01, 1);
             }
 
             :host(:not([collapsed]):not(:first-of-type)) .translate {
-                -webkit-transform: translateY(-16px);
                 transform: translateY(-16px);
             }
 
             :host(:not([collapsed]):not(:first-of-type)) .translate > :not(template) {
-                -webkit-transform: translateY(16px);
                 transform: translateY(16px);
             }
 
@@ -132,7 +126,6 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
             }
 
             :host([collapsed]) .collapser .secondary {
-                -webkit-transform: rotate(180deg);
                 transform: rotate(180deg);
             }
         </style>
