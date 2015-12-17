@@ -90,10 +90,10 @@ To make the sublist able to collapse and expand you need to set `collapsible`.
             }
 
             :host([collapsible][collapsed]) .divider,
-            :host([collapsible]:not([collapsed]):first-of-type) .divider.cap,
-            :host([collapsible]:not([collapsed]):last-of-type) .divider.baseline,
+            :host([collapsible]:not([collapsed]):first-of-type) > .divider.cap,
+            :host([collapsible]:not([collapsed]):last-of-type) > .translate > .wrapper > .collapsible > .divider.baseline,
             :host(:not([collapsible])) .divider.cap,
-            :host(:not([collapsible]):last-of-type) .divider.baseline {
+            :host(:not([collapsible]):last-of-type) > .translate > .wrapper > .collapsible > .divider.baseline {
                 height: 0;
                 opacity: 0;
                 padding: 0;
