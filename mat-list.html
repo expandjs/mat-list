@@ -102,12 +102,12 @@ If you want to be able to select more than one item at a time, you can set `mult
                 min-height: 48px;
                 padding: 0 16px;
                 overflow: hidden;
-                text-overflow: ellipsis !important;
-                white-space: nowrap !important;
+                text-overflow: ellipsis !important; /* override */
+                white-space: nowrap !important; /* override */
             }
 
-            :host .wrapper ::content > mat-subheader,
-            :host .wrapper ::content mat-sublist[label]:not([label=""]):not([collapsible]) {
+            :host .wrapper ::content > .subheader,
+            :host .wrapper ::content .sublist[label]:not([label=""]):not([collapsible]) {
                 margin-top: -8px;
             }
 
